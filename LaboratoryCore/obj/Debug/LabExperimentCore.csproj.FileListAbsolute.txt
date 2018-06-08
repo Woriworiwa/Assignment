@@ -1,0 +1,14 @@
+c:\users\gugu\documents\visual studio 2015\Projects\LabExperiment\Core\bin\Debug\LabExperimentCore.dll
+c:\users\gugu\documents\visual studio 2015\Projects\LabExperiment\Core\bin\Debug\LabExperimentCore.pdb
+c:\users\gugu\documents\visual studio 2015\Projects\LabExperiment\Core\bin\Debug\Newtonsoft.Json.dll
+c:\users\gugu\documents\visual studio 2015\Projects\LabExperiment\Core\bin\Debug\Newtonsoft.Json.xml
+c:\users\gugu\documents\visual studio 2015\Projects\LabExperiment\Core\obj\Debug\LabExperimentCore.csprojResolveAssemblyReference.cache
+c:\users\gugu\documents\visual studio 2015\Projects\LabExperiment\Core\obj\Debug\LabExperimentCore.dll
+c:\users\gugu\documents\visual studio 2015\Projects\LabExperiment\Core\obj\Debug\LabExperimentCore.pdb
+C:\Users\Gugu\Documents\Visual Studio 2015\Projects\LabExperiment\LabExperimentCore\bin\Debug\LabExperimentCore.dll
+C:\Users\Gugu\Documents\Visual Studio 2015\Projects\LabExperiment\LabExperimentCore\bin\Debug\LabExperimentCore.pdb
+C:\Users\Gugu\Documents\Visual Studio 2015\Projects\LabExperiment\LabExperimentCore\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Gugu\Documents\Visual Studio 2015\Projects\LabExperiment\LabExperimentCore\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Gugu\Documents\Visual Studio 2015\Projects\LabExperiment\LabExperimentCore\obj\Debug\LabExperimentCore.csprojResolveAssemblyReference.cache
+C:\Users\Gugu\Documents\Visual Studio 2015\Projects\LabExperiment\LabExperimentCore\obj\Debug\LabExperimentCore.dll
+C:\Users\Gugu\Documents\Visual Studio 2015\Projects\LabExperiment\LabExperimentCore\obj\Debug\LabExperimentCore.pdb

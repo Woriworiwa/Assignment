@@ -1,0 +1,86 @@
+﻿@using LaboratoryCore;
+
+@model LaboratoryViewModel
+
+<div class="well">
+    @using (Html.BeginForm())
+    {
+        <div class="row form-group">
+            <div class="col-md-2">Plate size</div>
+            <div class="col-md-10">
+                <Label>@Html.RadioButtonFor(m => m.PlateSize, PlateSizes.Small) @PlateSizes.Small.ToString()</Label>
+                <Label>@Html.RadioButtonFor(m => m.PlateSize, PlateSizes.Big) @PlateSizes.Big</Label>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2">Samples</div>
+            <div class="col-md-10">@Html.TextAreaFor(m => m.Samples, new { @class = "form-control mt-10" })</div>
+
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-2">Reagents</div>
+            <div class="col-md-10">@Html.TextAreaFor(m => m.Reagents, new { @class = "form-control mt-10" })</div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-2">Repititions</div>
+            <div class="col-md-10">@Html.TextBoxFor(m => m.Repititions, new { @class = "form-control" })</div>
+        </div>
+        <input type="submit" value="Generate experiments" />
+    }
+</div>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            We're sorry, we could not generate your experiments.
+        </div>
+        <div class="panel-body">
+            System error: @Model.ErrorMessage
+        </div>
+    </div>   
+}
+else
+{
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#plates" aria-controls="plates" role="tab" data-toggle="tab">Experiments</a></li>
+        <li role="presentation"><a href="#json" aria-controls="json" role="tab" data-toggle="tab">JSON</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="plates">
+            @foreach (Plate plate in Model.Plates)
+            {
+                <table class="table table-condensed table-bordered">
+                    <tbody>
+                        @for (int i = 0; i < plate.Wells.GetLength(0); i++)
+                    {
+                            <tr>
+                                @for (int j = 0; j < plate.Wells.GetLength(1); j++)
+                                {
+                                    <td class="" data-experimentId="@(plate.Wells[i, j] != null ? plate.Wells[i, j].ExperimentId.ToString() : string.Empty)">
+                                        <div>
+                                            @(plate.Wells[i, j] != null ? plate.Wells[i, j].Sample.ToString() : string.Empty)
+                                        </div>
+                                        <div>
+                                            @(plate.Wells[i, j] != null ? plate.Wells[i, j].Reagent.ToString() : string.Empty)
+                                        </div>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="json">
+            <pre class="prettyprint"></pre>
+        </div>
+    </div>
+}
+<script>
+    var output = @Html.Raw(Model.Output);
+</script>
