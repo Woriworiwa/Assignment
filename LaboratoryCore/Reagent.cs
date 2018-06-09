@@ -1,13 +1,13 @@
 ﻿
 namespace LaboratoryCore
 {
-    public class Reagent
+    public class Reagent<J>
     {
-        public string Name { get; set; }
+        public J Data { get; set; }
 
         public override string ToString()
         {
-            return Name;
+            return Data.ToString();
         }
     }
 }

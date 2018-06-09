@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace LaboratoryWeb
 {
-    public class LaboratoryViewModel
+    public class LaboratoryViewModel<T,J>
     {
         public PlateSizes PlateSize { get; set; } = PlateSizes.Small;
 
-        public List<Plate> Plates { get; set; }
+        public List<Plate<T,J>> Plates { get; set; }
 
         public string Samples { get; set; }
 

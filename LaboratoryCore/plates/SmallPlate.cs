@@ -3,7 +3,7 @@
     /// <summary>
     /// A small plate of 8 rows and 12 columns.
     /// </summary>
-    public class SmallPlate: Plate
+    public class SmallPlate<T,J>: Plate<T,J>
     {
         /// <summary>
         /// Number of rows in this plate.

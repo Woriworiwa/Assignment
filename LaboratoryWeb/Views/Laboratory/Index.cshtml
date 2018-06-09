@@ -1,6 +1,6 @@
 ﻿@using LaboratoryCore;
 
-@model LaboratoryViewModel
+@model LaboratoryViewModel<string,string>
 
 <div class="well">
     @using (Html.BeginForm())
@@ -51,7 +51,7 @@ else
 
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="plates">
-            @foreach (Plate plate in Model.Plates)
+            @foreach (Plate<string, string> plate in Model.Plates)
             {
                 <table class="table table-condensed table-bordered">
                     <tbody>

@@ -1,10 +1,10 @@
 ﻿namespace LaboratoryCore
 {
-    public abstract class Plate
+    public abstract class Plate<T,J>
     {
         private int rowNumber = -1;
         private int colNumber = -1;
-        Well[,] wells;
+        Well<T,J>[,] wells;
 
         /// <summary>
         /// Number of rows in this plate. 
@@ -31,7 +31,7 @@
         /// <summary>
         /// The wells in this plate.
         /// </summary>
-        public Well[,] Wells
+        public Well<T,J>[,] Wells
         {
             get
             {
@@ -44,20 +44,20 @@
         /// </summary>
         public Plate()
         {
-            wells = new Well[Rows, Columns];
+            wells = new Well<T,J>[Rows, Columns];
         }
 
         /// <summary>
         /// Creates a plate;
         /// </summary>
-        public static Plate CreatePlate(PlateSizes plateSize)
+        public static Plate<T,J> CreatePlate(PlateSizes plateSize)
         {
             switch (plateSize)
             {
                 case PlateSizes.Small:
-                    return new SmallPlate();
+                    return new SmallPlate<T,J>();
                 case PlateSizes.Big:
-                    return new BigPlate();
+                    return new BigPlate<T,J>();
                 default:
                     return null;
             }
@@ -66,9 +66,9 @@
         /// <summary>
         /// Fills the well.
         /// </summary>       
-        public void FillWell(Experiment experiment, Sample sample, Reagent reagent)
+        public void FillWell(Experiment<T,J> experiment, Sample<T> sample, Reagent<J> reagent)
         {
-            wells[++rowNumber, colNumber] = new Well(experiment, sample, reagent);
+            wells[++rowNumber, colNumber] = new Well<T,J>(experiment, sample, reagent);
         }
 
         /// <summary>

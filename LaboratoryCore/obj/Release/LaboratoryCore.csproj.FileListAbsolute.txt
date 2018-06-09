@@ -1,0 +1,7 @@
+C:\Users\Gugu\Documents\visual studio 2015\Projects\LabExperiment\LaboratoryCore\bin\Release\LaboratoryCore.dll
+C:\Users\Gugu\Documents\visual studio 2015\Projects\LabExperiment\LaboratoryCore\bin\Release\LaboratoryCore.pdb
+C:\Users\Gugu\Documents\visual studio 2015\Projects\LabExperiment\LaboratoryCore\bin\Release\Newtonsoft.Json.dll
+C:\Users\Gugu\Documents\visual studio 2015\Projects\LabExperiment\LaboratoryCore\bin\Release\Newtonsoft.Json.xml
+C:\Users\Gugu\Documents\visual studio 2015\Projects\LabExperiment\LaboratoryCore\obj\Release\LaboratoryCore.csprojResolveAssemblyReference.cache
+C:\Users\Gugu\Documents\visual studio 2015\Projects\LabExperiment\LaboratoryCore\obj\Release\LaboratoryCore.dll
+C:\Users\Gugu\Documents\visual studio 2015\Projects\LabExperiment\LaboratoryCore\obj\Release\LaboratoryCore.pdb

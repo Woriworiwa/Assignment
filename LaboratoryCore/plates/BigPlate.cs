@@ -3,7 +3,7 @@
     /// <summary>
     /// A big plate of 16 rows and 24 columns.
     /// </summary>
-    public class BigPlate: Plate
+    public class BigPlate<T,J>: Plate<T,J>
     {
         /// <summary>
         /// Number of rows in this plate.

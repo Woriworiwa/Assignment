@@ -9,9 +9,11 @@ namespace LaboratoryCore
         /// <summary>
         /// Run the experiments and fills the wells on one or multiple plates.
         /// </summary>        
-        public List<Plate> RunExperiments(int plateSize, string[][] samples, string[][] reagents, int[] replicates)
+        /// <typeparam name="T">Type of samples</typeparam>
+        /// <typeparam name="J">Type of reagents</typeparam>
+        public List<Plate<T,J>> RunExperiments<T,J>(int plateSize, T[][] samples, J[][] reagents, int[] replicates)
         {
-            List<Experiment> experiments = new List<Experiment>();
+            List<Experiment<T,J>> experiments = new List<Experiment<T,J>>();
 
             // Check that all arrays have the same length
             if (samples.GetLength(0) != reagents.GetLength(0) || samples.GetLength(0) != replicates.Length)
@@ -21,10 +23,10 @@ namespace LaboratoryCore
 
             for (int i = 0; i < samples.Length; i++)
             {
-                Experiment experiment = new Experiment()
+                Experiment<T,J> experiment = new Experiment<T,J>()
                 {
-                    Samples = Array.ConvertAll<string, Sample>(samples[i], value => new Sample { Name = value }).ToList<Sample>(),
-                    Reagents = Array.ConvertAll<string, Reagent>(reagents[i], value => new Reagent { Name = value }).ToList<Reagent>(),
+                    Samples = Array.ConvertAll<T, Sample<T>>(samples[i], value => new Sample<T> { Data = value }).ToList<Sample<T>>(),
+                    Reagents = Array.ConvertAll<J, Reagent<J>>(reagents[i], value => new Reagent<J> { Data = value }).ToList<Reagent<J>>(),
                     Replicates = replicates[i],
                     Id = i
                 };
@@ -32,19 +34,21 @@ namespace LaboratoryCore
                 experiments.Add(experiment);
             }
 
-            return RunExperiments((PlateSizes)plateSize, experiments);
+            return RunExperiments<T,J>((PlateSizes)plateSize, experiments);
         }
 
         /// <summary>
         /// Run the experiments and fills the wells on one or multiple plates.
         /// </summary>
-        private List<Plate> RunExperiments(PlateSizes plateSize, List<Experiment> experiments)
+        /// <typeparam name="T">Type of samples</typeparam>
+        /// <typeparam name="J">Type of reagents</typeparam>
+        private List<Plate<T,J>> RunExperiments<T,J>(PlateSizes plateSize, List<Experiment<T,J>> experiments)
         {
             // Check the contstraints on the samples and reagents.
             CheckConstraints(experiments);
 
             // prepare plates needed for all the experiments.
-            List<Plate> plates = PreparePlates(plateSize, experiments);            
+            List<Plate<T,J>> plates = PreparePlates(plateSize, experiments);            
 
             // Fill the wells
             FillWells(plates, experiments);
@@ -58,16 +62,16 @@ namespace LaboratoryCore
         /// <param name="plateSize">The plate size.</param>
         /// <param name="experiments">The experiments that will be put on the plates.</param>
         /// <returns>Plates that will be enough to run the experiments.</returns>
-        private List<Plate> PreparePlates(PlateSizes plateSize, List<Experiment> experiments)
+        private List<Plate<T,J>> PreparePlates<T,J>(PlateSizes plateSize, List<Experiment<T,J>> experiments)
         {
             // I have assumed that each repition will take a column.
             double numberOfAllReplicates = experiments.Select(x => x.Replicates).Sum();
             int numberOfPlates = (int)Math.Ceiling(numberOfAllReplicates / (plateSize == PlateSizes.Small ? 12 : 24));
 
-            List<Plate> plates = new List<Plate>();
+            List<Plate<T,J>> plates = new List<Plate<T,J>>();
             for (int i = 0; i < numberOfPlates; i++)
             {
-                plates.Add(Plate.CreatePlate(plateSize));
+                plates.Add(Plate<T,J>.CreatePlate(plateSize));
             }
 
             return plates;
@@ -76,11 +80,11 @@ namespace LaboratoryCore
         /// <summary>
         /// Fills the wells with the experiments.
         /// </summary>
-        private void FillWells(List<Plate> plates, List<Experiment> experiments)
+        private void FillWells<T,J>(List<Plate<T,J>> plates, List<Experiment<T,J>> experiments)
         {
             int i = 0;
 
-            foreach (Experiment experiment in experiments)
+            foreach (var experiment in experiments)
             {
                 for (int rep = 0; rep < experiment.Replicates; rep++)
                 {
@@ -90,7 +94,6 @@ namespace LaboratoryCore
                     {                        
                         foreach (var reagent in experiment.Reagents)
                         {
-
                             if (plates[i].IsFull())
                             {
                                 i++;
@@ -107,7 +110,7 @@ namespace LaboratoryCore
         /// <summary>
         /// Checks if an experiment follows the rules and conditions required before running it.
         /// </summary>
-        private void CheckConstraints(List<Experiment> experiments)
+        private void CheckConstraints<T,J>(List<Experiment<T,J>> experiments)
         {
             // All reagent names must be unique.
             if (!CheckReagentsUnique(experiments))
@@ -127,9 +130,9 @@ namespace LaboratoryCore
         /// <summary>
         /// Checks if the reagents for each experiment are unique.
         /// </summary>
-        private bool CheckReagentsUnique(List<Experiment> experiments)
+        private bool CheckReagentsUnique<T,J>(List<Experiment<T,J>> experiments)
         {
-            foreach (Experiment experiment in experiments)
+            foreach (var experiment in experiments)
             {
                 if (experiment.Reagents.Distinct().Count() != experiment.Reagents.Count())
                 {
@@ -143,9 +146,9 @@ namespace LaboratoryCore
         /// <summary>
         /// Checks if the samples for each experiment are unique.
         /// </summary>
-        private bool CheckSamplesUnique(List<Experiment> experiments)
+        private bool CheckSamplesUnique<T,J>(List<Experiment<T,J>> experiments)
         {
-            foreach (Experiment experiment in experiments)
+            foreach (var experiment in experiments)
             {
                 if (experiment.Samples.Distinct().Count() != experiment.Samples.Count())
                 {
